@@ -34,14 +34,14 @@ class Gpm:
             "fixed_webrtc_public_ip": "",
             "geolocation_mode": None,
             "canvas_mode": None,
-            "client_rects_mode": None,
+            "client_rect_mode": None,
             "webgl_image_mode": None,
             "webgl_metadata_mode": None,
             "audio_mode": None,
             "font_mode": None,
-            "timezone_based_on_ip": True,
+            "timezone_base_on_ip": True,
             "timezone": None,
-            "is_language_based_on_ip": True,
+            "is_language_base_on_ip": True,
             "fixed_language": None
         }
         return payload
@@ -59,14 +59,14 @@ class Gpm:
             "fixed_webrtc_public_ip": "",
             "geolocation_mode": None,
             "canvas_mode": None,
-            "client_rects_mode": None,
+            "client_rect_mode": None,
             "webgl_image_mode": None,
             "webgl_metadata_mode": None,
             "audio_mode": None,
             "font_mode": None,
-            "timezone_based_on_ip": True,
+            "timezone_base_on_ip": True,
             "timezone": None,
-            "is_language_based_on_ip": True,
+            "is_language_base_on_ip": True,
             "fixed_language": None
         }
         return payload
@@ -161,44 +161,70 @@ class Gpm:
 
 
 
-    def close_profile(self,apiurl_Gpm,id_profile):
-        response = requests.get(apiurl_Gpm+"/api/v1/profiles/stop/"+id_profile,timeout=30).json()
-    def update_profile(self,apiurl_Gpm,id_profile):
-        response = requests.post(apiurl_Gpm+"/api/v1/profiles/update/"+id_profile,timeout=30).json()
-    def delete_profile(self,apiurl_Gpm,id_profile):
-        response = requests.get(apiurl_Gpm+"/api/v1/profiles/delete/"+id_profile+"?mode=2",timeout=30).json()
-        print("xóa id_profile là",id_profile)
+    def close_profile(self, apiurl_Gpm, id_profile):
+        response = requests.get(
+            f"{apiurl_Gpm}/api/v1/profiles/stop/{id_profile}",
+            timeout=30
+        ).json()
+        print("đóng profile:", response)
+        return response
+    def update_profile(self, apiurl_Gpm, id_profile, proxy=""):
+        payload = self.get_new_payload(proxy)
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        response = requests.post(
+            f"{apiurl_Gpm}/api/v1/profiles/update/{id_profile}",
+            json=payload,
+            headers=headers,
+            timeout=30
+        ).json()
+
+        print("update profile:", response)
+        return response
+    def delete_profile(self, apiurl_Gpm, id_profile, mode="hard"):
+        response = requests.get(
+            f"{apiurl_Gpm}/api/v1/profiles/delete/{id_profile}",
+            params={"mode": mode},
+            timeout=30
+        ).json()
+
+        print("xóa id_profile là", id_profile)
+        print("response delete:", response)
+        return response
 
 
 
-# if __name__ == "__main__":
-#     g = Gpm()
-#     apiurl_Gpm = API_URL
-#     proxy = ""  # Nếu không dùng proxy thì để rỗng
-#     # proxy = "ip:port:user:pass"  # Nếu dùng proxy thì điền vào đây
-#     # Bước 1: Tạo profile
-#     id_profile = g.create_profile(apiurl_Gpm, proxy)
-#     print("đã tạo profile")
-#     time.sleep(2)
-#     # Bước 2: Mở profile
-#     remote_debugging_address = g.open_profile(
-#         apiurl_Gpm=apiurl_Gpm,
-#         id_profile=id_profile,
-#         win_pos="0,0",
-#         win_size="800,600"
-#     )
-#     print("đã mở profile vừa tạo")
-#     print("remote_debugging_address:", remote_debugging_address)
-#     time.sleep(2)
-#     # Bước 3: Đóng profile
-#     g.close_profile(apiurl_Gpm, id_profile)
-#     print("đã đóng profile vừa tạo")
-#     time.sleep(2)
-#     # Bước 4: Update profile
-#     g.update_profile(apiurl_Gpm, id_profile)
-#     print("đã update profile vừa tạo")
-#     time.sleep(2)
-#     # Bước 5: Xóa profile
-#     g.delete_profile(apiurl_Gpm, id_profile)
-#     print("đã xóa profile vừa tạo")
-#     time.sleep(1000)
+if __name__ == "__main__":
+    g = Gpm()
+    apiurl_Gpm = API_URL
+    proxy = ""  # Nếu không dùng proxy thì để rỗng
+    # proxy = "ip:port:user:pass"  # Nếu dùng proxy thì điền vào đây
+    # Bước 1: Tạo profile
+    id_profile = g.create_profile(apiurl_Gpm, proxy)
+    print("đã tạo profile")
+    time.sleep(2)
+    # Bước 2: Mở profile
+    remote_debugging_address = g.open_profile(
+        apiurl_Gpm=apiurl_Gpm,
+        id_profile=id_profile,
+        win_pos="0,0",
+        win_size="800,600"
+    )
+    print("đã mở profile vừa tạo")
+    print("remote_debugging_address:", remote_debugging_address)
+    time.sleep(2)
+    # Bước 3: Đóng profile
+    g.close_profile(apiurl_Gpm, id_profile)
+    print("đã đóng profile vừa tạo")
+    time.sleep(2)
+    # Bước 4: Update profile
+    g.update_profile(apiurl_Gpm, id_profile)
+    print("đã update profile vừa tạo")
+    time.sleep(2)
+    # Bước 5: Xóa profile
+    g.delete_profile(apiurl_Gpm, id_profile)
+    print("đã xóa profile vừa tạo")
+    time.sleep(1000)

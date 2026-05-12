@@ -105,42 +105,6 @@ class Gpm:
         # Lấy remote_debugging_address
         remote_debugging_address = response["data"]["remote_debugging_address"]
         return remote_debugging_address
-        # http://127.0.0.1:19995/api/v3/profiles/start/xgyasg1995?win_scale=0.8&win_pos=300,300    
-    # def open_profile(self, apiurl_Gpm, id_profile, win_pos, win_size):
-    #     extension_dir = r"C:\Users\PC\Desktop\nopecha"
-    #     add_args = f'--load-extension="{extension_dir}"'
-
-    #     params_open_profile = {
-    #         "addination_args": add_args,
-    #         "win_scale": 1.0,
-    #         "win_pos": win_pos,
-    #         "win_size": win_size,
-    #     }
-
-    #     url = f"{apiurl_Gpm}/api/v3/profiles/start/{id_profile}"
-
-    #     response = requests.get(url, params=params_open_profile, timeout=30).json()
-
-    #     print("🔍 GPM start profile response:", response)
-
-    #     # ❌ API fail
-    #     if not response:
-    #         raise Exception("GPM API không trả response")
-
-    #     if response.get("success") is not True:
-    #         raise Exception(f"GPM start profile lỗi: {response}")
-
-    #     data = response.get("data")
-    #     if not data:
-    #         raise Exception("GPM profile chưa ready (data=None)")
-
-    #     remote_debugging_address = data.get("remote_debugging_address")
-    #     if not remote_debugging_address:
-    #         raise Exception(f"Không có remote_debugging_address: {response}")
-
-    #     return remote_debugging_address
-
-
 
     def close_profile(self,apiurl_Gpm,id_profile):
         response = requests.get(apiurl_Gpm+"/api/v3/profiles/close/"+id_profile,timeout=30).json()
