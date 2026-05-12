@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+.env
+config.env
+sephora_accounts.txt
