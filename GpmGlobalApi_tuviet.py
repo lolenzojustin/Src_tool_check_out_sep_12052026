@@ -16,7 +16,7 @@ def get_next_port():
         return port
     
 
-API_URL = "http://localhost:9495"  # URL mặc định của GPM Global API trên máy local
+# API_URL = "http://localhost:9495"  # URL mặc định của GPM Global API trên máy local
 class Gpm:
     def __init__(self) -> None:
         pass
@@ -116,8 +116,9 @@ class Gpm:
     #     return remote_debugging_address
 
 
-    def open_profile(self, apiurl_Gpm, id_profile, win_pos, win_size):
-        extension_dir = r"C:\Users\Admin\OneDrive\Desktop\nopecha"
+    def open_profile(self, apiurl_Gpm, id_profile, win_pos, win_size,link_nopecha):
+        # extension_dir = r"C:\Users\Admin\OneDrive\Desktop\nopecha"
+        extension_dir = link_nopecha
         # add_args = f'--load-extension="{extension_dir}"'
         add_args = (
         f'--load-extension="{extension_dir}" '
@@ -197,34 +198,34 @@ class Gpm:
 
 
 
-if __name__ == "__main__":
-    g = Gpm()
-    apiurl_Gpm = API_URL
-    proxy = ""  # Nếu không dùng proxy thì để rỗng
-    # proxy = "ip:port:user:pass"  # Nếu dùng proxy thì điền vào đây
-    # Bước 1: Tạo profile
-    id_profile = g.create_profile(apiurl_Gpm, proxy)
-    print("đã tạo profile")
-    time.sleep(2)
-    # Bước 2: Mở profile
-    remote_debugging_address = g.open_profile(
-        apiurl_Gpm=apiurl_Gpm,
-        id_profile=id_profile,
-        win_pos="0,0",
-        win_size="800,600"
-    )
-    print("đã mở profile vừa tạo")
-    print("remote_debugging_address:", remote_debugging_address)
-    time.sleep(2)
-    # Bước 3: Đóng profile
-    g.close_profile(apiurl_Gpm, id_profile)
-    print("đã đóng profile vừa tạo")
-    time.sleep(2)
-    # Bước 4: Update profile
-    g.update_profile(apiurl_Gpm, id_profile)
-    print("đã update profile vừa tạo")
-    time.sleep(2)
-    # Bước 5: Xóa profile
-    g.delete_profile(apiurl_Gpm, id_profile)
-    print("đã xóa profile vừa tạo")
-    time.sleep(1000)
+# if __name__ == "__main__":
+#     g = Gpm()
+#     apiurl_Gpm = API_URL
+#     proxy = ""  # Nếu không dùng proxy thì để rỗng
+#     # proxy = "ip:port:user:pass"  # Nếu dùng proxy thì điền vào đây
+#     # Bước 1: Tạo profile
+#     id_profile = g.create_profile(apiurl_Gpm, proxy)
+#     print("đã tạo profile")
+#     time.sleep(2)
+#     # Bước 2: Mở profile
+#     remote_debugging_address = g.open_profile(
+#         apiurl_Gpm=apiurl_Gpm,
+#         id_profile=id_profile,
+#         win_pos="0,0",
+#         win_size="800,600"
+#     )
+#     print("đã mở profile vừa tạo")
+#     print("remote_debugging_address:", remote_debugging_address)
+#     time.sleep(2)
+#     # Bước 3: Đóng profile
+#     g.close_profile(apiurl_Gpm, id_profile)
+#     print("đã đóng profile vừa tạo")
+#     time.sleep(2)
+#     # Bước 4: Update profile
+#     g.update_profile(apiurl_Gpm, id_profile)
+#     print("đã update profile vừa tạo")
+#     time.sleep(2)
+#     # Bước 5: Xóa profile
+#     g.delete_profile(apiurl_Gpm, id_profile)
+#     print("đã xóa profile vừa tạo")
+#     time.sleep(1000)
