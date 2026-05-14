@@ -391,6 +391,8 @@ class MultiThread(QThread):
 
         self.gpm = None          # object GpmApi.Gpm()
         self.id_profile = None   # id profile do GPM tạo ra
+        self.cleanup_done = False
+        self.cleanup_lock = threading.Lock()
 
     def calc_window_position(self, index, kichthuoc: str):
         width_ui, height_ui = map(int, kichthuoc.split(","))
@@ -653,20 +655,39 @@ class MultiThread(QThread):
             else:
                 print(f"Đóng profile {self.id_profile} (đã tạo xong hoặc dưới 3 phút)")
 
-            if self.gpm is not None and self.id_profile is not None:
-                try:
-                    self.gpm.close_profile(self.apiurl, self.id_profile)
-                    print("Đóng ở finally cuối")
-                    print("Đóng id_profile", self.id_profile)
-                    time.sleep(1)
-                    self.gpm.update_profile(self.apiurl, self.id_profile)
-                    print("Update id_profile", self.id_profile)
-                    time.sleep(1)
-                    self.gpm.delete_profile(self.apiurl, self.id_profile)
-                    print("Delete id_profile", self.id_profile)
-                    time.sleep(1)
-                except Exception as e:
-                    print("Lỗi khi close/update/delete profile:", e)
+            self.cleanup_profile()
+    def cleanup_profile(self):
+        with self.cleanup_lock:
+            if self.cleanup_done:
+                return
+
+            if self.gpm is None or self.id_profile is None:
+                print(f"Thread {self.index}: chưa có profile để đóng/xóa")
+                self.cleanup_done = True
+                return
+
+            profile_id = self.id_profile
+
+            try:
+                close_res = self.gpm.close_profile(self.apiurl, profile_id)
+                print("Kết quả đóng profile:", close_res)
+
+                time.sleep(2)
+
+                delete_res = self.gpm.delete_profile(self.apiurl, profile_id, mode="hard")
+                print("Kết quả xóa profile:", delete_res)
+
+                if not delete_res.get("success"):
+                    print("Xóa profile lần 1 lỗi, thử lại lần 2")
+                    time.sleep(3)
+                    delete_res = self.gpm.delete_profile(self.apiurl, profile_id, mode="hard")
+                    print("Kết quả xóa profile lần 2:", delete_res)
+
+            except Exception as e:
+                print(f"Lỗi khi đóng/xóa profile {profile_id}:", e)
+
+            finally:
+                self.cleanup_done = True
 
     def logOut(self):
         print("Bắt đầu logout")
@@ -677,27 +698,9 @@ class MultiThread(QThread):
     #     self.is_running = False
     #     print(f"Yêu cầu dừng thread {self.index}")
     def stop(self):
-        # đánh dấu là đã được yêu cầu dừng
         self.is_running = False
-
-        # 👉 ĐÓNG + XÓA PROFILE GPM
-        try:
-                if self.gpm is not None and self.id_profile is not None:
-                # đóng profile
-                        self.gpm.close_profile(self.apiurl, self.id_profile)
-                        print(f"Đã đóng profile {self.id_profile}")
-
-                        # xóa profile
-                        self.gpm.delete_profile(self.apiurl, self.id_profile)
-                        print(f"Đã xóa profile {self.id_profile}")
-                else:
-                        print(f"Thread {self.index}: không có profile để đóng/xóa")
-        except Exception as e:
-                print(f"Lỗi khi đóng/xóa profile {self.id_profile}: {e}")
-
-        # cuối cùng mới kill thread
-        self.terminate()
-
+        self.cleanup_profile()
+        print(f"Yêu cầu dừng thread {self.index}")
 # ===========================
 # MANAGER: GẮN UI + THREAD
 # ===========================
@@ -815,14 +818,11 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
             time.sleep(0.5)
 
     def stopThread(self):
-        # 1. Dừng toàn bộ thread đang chạy
         for t in self.threads:
-                t.stop()   # trong stop() sẽ tự đóng profile
-                t.wait()   # đợi thread đó kết thúc hẳn (optional nhưng nên có)
+            t.stop()
+            t.wait(10000)
 
-        # 2. Xóa danh sách thread, KHÔNG tắt tool
         self.threads = []
-        # KHÔNG gọi QApplication.quit() hay QCoreApplication.instance().quit()
 
     def write_data(self, i, proxy, email, password, month_birthday, status):
         self.tableWidget.setItem(i, 0, QTableWidgetItem(str(proxy)))

@@ -1,0 +1,2365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+  <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1500</width>
+    <height>900</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>720</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Video AI Tool</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+      background-color: #080d18;
+      color: #e8eefc;
+      font-family: Segoe UI;
+      font-size: 14px;
+  }
+
+  QFrame#leftFrame {
+      background-color: #090f1d;
+      border-radius: 10px;
+  }
+
+  QScrollArea#leftScroll {
+      background-color: #090f1d;
+      border: 1px solid #1f2a3d;
+      border-radius: 10px;
+  }
+
+  QFrame#rightFrame {
+      background-color: #080d18;
+  }
+
+  QLabel[role=&quot;leftLabel&quot;] {
+      color: #cfd8e8;
+      font-size: 13px;
+      font-weight: 600;
+  }
+
+  QLabel#titleOption {
+      font-size: 21px;
+      font-weight: 800;
+      color: white;
+      padding-top: 8px;
+      padding-bottom: 4px;
+  }
+
+  QLabel#warningBox {
+      background-color: #241f0d;
+      border: 1px solid #78621c;
+      color: #ffd36a;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+  }
+
+  QLineEdit, QTextEdit, QComboBox {
+      background-color: #111827;
+      border: 1px solid #2d3a50;
+      border-radius: 8px;
+      padding-left: 12px;
+      padding-right: 12px;
+      color: white;
+      selection-background-color: #8b35e8;
+  }
+
+  QLineEdit:focus, QTextEdit:focus, QComboBox:focus {
+      border: 1px solid #9b4dff;
+  }
+
+  QPushButton {
+      background-color: #8b35e8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding-left: 12px;
+      padding-right: 12px;
+      font-weight: 700;
+  }
+
+  QPushButton:hover {
+      background-color: #a855f7;
+  }
+
+  QPushButton[role=&quot;bigPurpleButton&quot;] {
+      background-color: #9b4dff;
+      font-weight: 800;
+  }
+
+  QTabWidget::pane {
+      border: 1px solid #263449;
+      background-color: #080d18;
+      border-radius: 8px;
+  }
+
+  QTabBar::tab {
+      background-color: #111827;
+      color: white;
+      min-width: 210px;
+      padding: 13px 24px;
+      border: 1px solid #334155;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      font-weight: 800;
+  }
+
+  QTabBar::tab:selected {
+      background-color: #9b4dff;
+  }
+
+  QFrame#refFrame {
+      border: 1px solid #00b050;
+      border-radius: 12px;
+      background-color: #081120;
+  }
+
+  QLabel#refImageBox {
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #cbd5e1;
+      font-weight: 800;
+  }
+
+  QLabel#refText {
+      color: #ffb000;
+      font-weight: 800;
+  }
+
+  QFrame[role=&quot;sceneFrame&quot;] {
+      border: 1px dashed #c28a00;
+      border-radius: 12px;
+      background-color: #07101d;
+  }
+
+  QLabel[role=&quot;sceneImageBox&quot;] {
+      background-color: #030816;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      color: #cbd5e1;
+      font-weight: 800;
+  }
+
+  QLabel[role=&quot;cyanLabel&quot;] {
+      color: #22d3ee;
+      font-weight: 800;
+  }
+
+  QCheckBox {
+      spacing: 8px;
+      color: #e8eefc;
+  }
+
+  QCheckBox[role=&quot;sceneTitle&quot;] {
+      font-weight: 800;
+  }
+
+  QCheckBox::indicator {
+      width: 18px;
+      height: 18px;
+  }
+
+  QScrollBar:vertical {
+      background: #0b1220;
+      width: 13px;
+      margin: 0px;
+  }
+
+  QScrollBar::handle:vertical {
+      background: #475569;
+      min-height: 40px;
+      border-radius: 6px;
+  }
+
+  QSplitter::handle {
+      background-color: #1f2a3d;
+      width: 4px;
+  }</string>
+  </property>
+  <layout class="QHBoxLayout" name="mainLayout">
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <property name="leftMargin">
+    <number>10</number>
+   </property>
+   <property name="topMargin">
+    <number>10</number>
+   </property>
+   <property name="rightMargin">
+    <number>10</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="childrenCollapsible">
+      <bool>false</bool>
+     </property>
+     <property name="handleWidth">
+      <number>4</number>
+     </property>
+     <widget class="QScrollArea" name="leftScroll">
+      <property name="minimumSize">
+       <size>
+        <width>330</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <widget class="QFrame" name="leftFrame">
+       <layout class="QVBoxLayout" name="leftLayout">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <property name="leftMargin">
+         <number>14</number>
+        </property>
+        <property name="topMargin">
+         <number>14</number>
+        </property>
+        <property name="rightMargin">
+         <number>14</number>
+        </property>
+        <property name="bottomMargin">
+         <number>14</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="leftLabel_model">
+          <property name="text">
+           <string>Mô hình sinh kịch bản</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboModel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Gemini 3.1 Flash-Lite</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gemini 2.5 Pro</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>GPT-4.1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Claude</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_api">
+          <property name="text">
+           <string>AsyncLab API Key</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="inputApi">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="placeholderText">
+           <string>Nhập AsyncLab Key...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_folder">
+          <property name="text">
+           <string>Đường dẫn folder</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="inputFolder">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>C:\Users\Admin\Desktop\VIDEO AI</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnOpenFolder">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>44</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>📁  Mở thư mục xuất này</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QFrame" name="line1">
+          <property name="frameShape">
+           <enum>QFrame::HLine</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="titleOption">
+          <property name="text">
+           <string>TÙY CHỌN KỊCH BẢN</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_style">
+          <property name="text">
+           <string>Phong cách hình ảnh/ video</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboStyle">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Hyper Realistic (Chân thực 100%)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Anime Style</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Cinematic</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>3D Cartoon</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Fantasy Art</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkHistorical">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Dùng cho nội dung lịch sử, chân dung</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_language">
+          <property name="text">
+           <string>Ngôn ngữ kịch bản và giọng nói</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboLanguage">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>US English</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Tiếng Việt</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Japanese</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Korean</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_copy">
+          <property name="text">
+           <string>Tỷ lệ copy từ video gốc</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboCopy">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>50% - Copy một nửa</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>70% - Giữ phần lớn nội dung</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>30% - Biến đổi nhiều hơn</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_duration">
+          <property name="text">
+           <string>Tùy chỉnh thời lượng</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkDuration">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Bật tùy chỉnh thời lượng</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="warningBox">
+          <property name="text">
+           <string>⚠ Có thể gây mất chính xác so với video gốc</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_time">
+          <property name="text">
+           <string>Thời lượng (giây)</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="inputTime">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>60</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkRefImage">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Ảnh tham chiếu</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkVoice">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Đồng nhất giọng nhân vật</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="leftLabel_voice">
+          <property name="text">
+           <string>Giọng nhân vật đồng nhất</string>
+          </property>
+          <property name="role" stdset="0">
+           <string>leftLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboVoice">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>42</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Giọng nữ trẻ</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Giọng nam trầm</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Giọng kể chuyện</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Tự động</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_left">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="rightFrame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QVBoxLayout" name="rightLayout">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <widget class="QWidget" name="tabGrok">
+          <attribute name="title">
+           <string>Chế độ grok tạo video</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="layoutGrok">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="grokUrl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Nhập video hoặc nội dung cho Grok...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="grokNote">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Mô tả thêm tùy chọn...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnGrokAnalyze">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>🤖 PHÂN TÍCH BẰNG GROK</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>bigPurpleButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="grokButtonGrid">
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>10</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="btnGrokMerge">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎬 Ghép Video</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="btnGrokScene">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎞 Ghép cảnh đã chọn</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnGrokFix">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🛠 Sửa tất cả lỗi</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="btnGrokAdd">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>➕ Thêm kịch bản</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="grokText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Kết quả kịch bản Grok sẽ hiển thị ở đây...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabVeo3">
+          <attribute name="title">
+           <string>Chế độ Veo3 tạo video</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="layoutVeo3">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="veoUrl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>https://www.youtube.com/shorts/bQic0POmBHA</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="veoNote">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Mô tả thêm tùy chọn...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnAnalyzeYoutube">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>🐱 PHÂN TÍCH TỪ YOUTUBE</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>bigPurpleButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="veoButtonGrid">
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>10</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="btnProcessing">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>⏳ Đang xử lý... (2/13)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="btnMergeVideo">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎬 Ghép Video</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnMergeScene">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎞 Ghép cảnh đã chọn (0)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="btnCombo">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>⚡ Đang chạy Combo 3...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="btnFixAll">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🛠 Sửa tất cả lỗi</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="btnAddScript">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>➕ Thêm kịch bản</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QFrame" name="refFrame">
+             <layout class="QHBoxLayout" name="refLayout">
+              <property name="spacing">
+               <number>14</number>
+              </property>
+              <property name="leftMargin">
+               <number>14</number>
+              </property>
+              <property name="topMargin">
+               <number>14</number>
+              </property>
+              <property name="rightMargin">
+               <number>14</number>
+              </property>
+              <property name="bottomMargin">
+               <number>14</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="refImageBox">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>120</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>ẢNH THAM CHIẾU</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="refText">
+                <property name="text">
+                 <string>MEO ME (Adult female cat, white fur, red dress...)
+                MEO BO (Adult male cat, orange tabby fur, strong posture...)</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QScrollArea" name="sceneScroll">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <widget class="QWidget" name="sceneContainer">
+              <layout class="QVBoxLayout" name="sceneLayout">
+               <property name="spacing">
+                <number>14</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QFrame" name="sceneFrame_1">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_1">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_1">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 1</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_1">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_1">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 1</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_1">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_1">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="sceneFrame_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_2">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 2</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_2">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_2">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 2</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_2">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_2">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="sceneFrame_3">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_3">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_3">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 3</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_3">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_3">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 3</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_3">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_3">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_3">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="sceneFrame_4">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_4">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 4</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_4">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_4">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_4">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 4</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_4">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_4">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_4">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_4">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="sceneFrame_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_5">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_5">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 5</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_5">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_5">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_5">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 5</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_5">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_5">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_5">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_5">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QFrame" name="sceneFrame_6">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>235</height>
+                  </size>
+                 </property>
+                 <property name="role" stdset="0">
+                  <string>sceneFrame</string>
+                 </property>
+                 <layout class="QHBoxLayout" name="sceneLayout_6">
+                  <property name="spacing">
+                   <number>16</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>14</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>14</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="sceneImageBox_6">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>165</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>SCENE 6</string>
+                    </property>
+                    <property name="role" stdset="0">
+                     <string>sceneImageBox</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QFrame" name="sceneRightBox_6">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <layout class="QVBoxLayout" name="sceneRightLayout_6">
+                     <property name="spacing">
+                      <number>8</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QCheckBox" name="sceneTitle_6">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="text">
+                        <string>CẢNH 6</string>
+                       </property>
+                       <property name="checked">
+                        <bool>true</bool>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>sceneTitle</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelPrompt_6">
+                       <property name="text">
+                        <string>VIDEO PROMPT</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QTextEdit" name="prompt_6">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>90</height>
+                        </size>
+                       </property>
+                       <property name="plainText">
+                        <string>anime style, vibrant colors, clean outlines, soft cel shading, detailed eyes, studio-quality anime frame, high clarity character design. The character stands in a cinematic scene with expressive emotion.</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLabel" name="labelTts_6">
+                       <property name="text">
+                        <string>APPS / TTS</string>
+                       </property>
+                       <property name="role" stdset="0">
+                        <string>cyanLabel</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QLineEdit" name="tts_6">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>0</width>
+                         <height>42</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>I am pregnant!</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <spacer name="verticalSpacer_scene">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabSeedance">
+          <attribute name="title">
+           <string>Chế độ Seedance 2.0 video</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="layoutSeedance">
+           <property name="spacing">
+            <number>12</number>
+           </property>
+           <property name="leftMargin">
+            <number>16</number>
+           </property>
+           <property name="topMargin">
+            <number>16</number>
+           </property>
+           <property name="rightMargin">
+            <number>16</number>
+           </property>
+           <property name="bottomMargin">
+            <number>16</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="seedUrl">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Nhập link video hoặc prompt cho Seedance 2.0...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="seedNote">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>42</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Mô tả thêm tùy chọn...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btnSeedAnalyze">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>✨ PHÂN TÍCH SEEDANCE 2.0</string>
+             </property>
+             <property name="role" stdset="0">
+              <string>bigPurpleButton</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QGridLayout" name="seedButtonGrid">
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>10</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QPushButton" name="btnSeedVideo">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎬 Tạo Video</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="btnSeedScene">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🎞 Tạo cảnh đã chọn</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QPushButton" name="btnSeedFix">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>🛠 Sửa tất cả lỗi</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QPushButton" name="btnSeedAdd">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>44</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>➕ Thêm kịch bản</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="seedText">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>90</height>
+              </size>
+             </property>
+             <property name="placeholderText">
+              <string>Prompt Seedance 2.0 sẽ hiển thị ở đây...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
