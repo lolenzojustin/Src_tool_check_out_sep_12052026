@@ -29,276 +29,262 @@ class Ui_Widget(object):
     def setupUi(self, Widget):
         Widget.setObjectName("Widget")
         Widget.resize(1499, 925)
-        self.verticalLayoutWidget = QtWidgets.QWidget(Widget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(-10, 0, 1511, 701))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        Widget.setMinimumSize(1200, 760)
+
+        # Dùng central widget + layout để giao diện tự co giãn, các ô cách đều hơn
+        self.centralwidget = QtWidgets.QWidget(Widget)
+        self.centralwidget.setObjectName("centralwidget")
+        Widget.setCentralWidget(self.centralwidget)
+
+        self.verticalLayoutWidget = self.centralwidget
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setContentsMargins(14, 14, 14, 14)
+        self.verticalLayout.setSpacing(12)
         self.verticalLayout.setObjectName("verticalLayout")
+
+        # Style chung cho giao diện
+        Widget.setStyleSheet("""
+            QWidget {
+                font-family: "Segoe UI";
+                font-size: 9pt;
+            }
+            QTableWidget {
+                border: 1px solid #cfcfcf;
+                border-radius: 8px;
+                gridline-color: #e5e5e5;
+                background-color: white;
+                selection-background-color: #dbeafe;
+            }
+            QHeaderView::section {
+                background-color: #f3f4f6;
+                color: #111827;
+                font-weight: 700;
+                padding: 6px;
+                border: 1px solid #d1d5db;
+            }
+            QLineEdit, QComboBox {
+                min-height: 30px;
+                padding: 4px 8px;
+                border: 1px solid #9ca3af;
+                border-radius: 6px;
+                font: 700 9pt "Segoe UI";
+            }
+            QPushButton {
+                min-height: 36px;
+                border: 2px solid #111827;
+                border-radius: 8px;
+                background-color: white;
+                color: #111827;
+                font: 800 12pt "Segoe UI";
+            }
+            QPushButton:hover {
+                background-color: #f3f4f6;
+            }
+        """)
+
         self.tableWidget = QtWidgets.QTableWidget(self.verticalLayoutWidget)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(0)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, item)
-        self.verticalLayout.addWidget(self.tableWidget)
+        for col in range(5):
+            item = QtWidgets.QTableWidgetItem()
+            self.tableWidget.setHorizontalHeaderItem(col, item)
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.verticalLayout.addWidget(self.tableWidget, 1)
+
+        # Nút bấm đặt cùng 1 hàng cho gọn hơn
+        self.buttonLayout = QtWidgets.QHBoxLayout()
+        self.buttonLayout.setSpacing(12)
+
         self.startBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.startBtn.setStyleSheet("#startBtn {\n"
-"    background-color: white;       /* nền trắng */\n"
-"    color: black;                  /* chữ đen */\n"
-"    border: 2px solid black;       /* viền đen đậm */\n"
-"    border-radius: 5px;            /* bo góc mềm mại */\n"
-"    font: 800 12pt \"Segoe UI\";     /* font Segoe UI, đậm, 10pt */\n"
-"    font-weight: bold;             /* đảm bảo đậm rõ */\n"
-"}\n"
-"\n"
-"#startBtn:hover {\n"
-"    background-color: #f0f0f0;     /* nền xám nhạt khi hover */\n"
-"    border: 2px solid black;       /* giữ viền đen */\n"
-"    color: black;                  /* chữ vẫn đen */\n"
-"}\n"
-"")
         self.startBtn.setObjectName("startBtn")
-        self.verticalLayout.addWidget(self.startBtn)
+        self.buttonLayout.addWidget(self.startBtn)
+
         self.stopBtn = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.stopBtn.setStyleSheet("#stopBtn {\n"
-"    background-color: white;       /* nền trắng */\n"
-"    color: black;                  /* chữ đen */\n"
-"    border: 2px solid black;       /* viền đen đậm */\n"
-"    border-radius: 5px;            /* bo góc mềm mại */\n"
-"    font: 800 12pt \"Segoe UI\";     /* font Segoe UI, đậm, 10pt */\n"
-"    font-weight: bold;             /* đảm bảo đậm rõ */\n"
-"}\n"
-"\n"
-"#stopBtn:hover {\n"
-"    background-color: #f0f0f0;     /* nền xám nhạt khi hover */\n"
-"    border: 2px solid black;       /* giữ viền đen */\n"
-"    color: black;                  /* chữ vẫn đen */\n"
-"}\n"
-"")
         self.stopBtn.setObjectName("stopBtn")
-        self.verticalLayout.addWidget(self.stopBtn)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(Widget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(260, 740, 381, 171))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.lineEdit_2 = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit_2.setStyleSheet("background-color: rgb(0, 170, 255);\n"
-"font: 700 9pt \"Segoe UI\";")
-        self.lineEdit_2.setObjectName("lineEdit_2")
-        self.verticalLayout_2.addWidget(self.lineEdit_2)
-        self.lineEdit_4 = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit_4.setStyleSheet("background-color: rgb(255, 255, 0);\n"
-"font: 700 9pt \"Segoe UI\";")
-        self.lineEdit_4.setObjectName("lineEdit_4")
-        self.verticalLayout_2.addWidget(self.lineEdit_4)
-        self.comboBox_2 = QtWidgets.QComboBox(self.verticalLayoutWidget_2)
-        self.comboBox_2.setStyleSheet("QComboBox {\n"
-"    background-color: rgb(255, 0, 0);   /* đỏ tươi */\n"
-"    border: 1px solid gray;\n"
-"    font: 700 9pt \"Segoe UI\";\n"
-"}\n"
-"\n"
-"/* nếu muốn list xổ xuống cũng hơi đỏ đỏ */\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: rgb(255, 100, 100);\n"
-"}\n"
-"")
-        self.comboBox_2.setObjectName("comboBox_2")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
-        self.verticalLayout_2.addWidget(self.comboBox_2)
-        self.lineEdit_6 = QtWidgets.QLineEdit(self.verticalLayoutWidget_2)
-        self.lineEdit_6.setStyleSheet("background-color: rgb(0, 170, 0);\n"
-"font: 700 9pt \"Segoe UI\";")
-        self.lineEdit_6.setObjectName("lineEdit_6")
-        self.verticalLayout_2.addWidget(self.lineEdit_6)
-        self.verticalLayoutWidget_3 = QtWidgets.QWidget(Widget)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(70, 740, 191, 171))
-        self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.lineEdit_10 = QtWidgets.QLineEdit(self.verticalLayoutWidget_3)
-        self.lineEdit_10.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"background-color: rgb(0, 170, 255);")
+        self.buttonLayout.addWidget(self.stopBtn)
+
+        self.verticalLayout.addLayout(self.buttonLayout)
+
+        # Khung nhập thông tin bên dưới
+        self.formFrame = QtWidgets.QFrame(self.verticalLayoutWidget)
+        self.formFrame.setObjectName("formFrame")
+        self.formFrame.setStyleSheet("""
+            #formFrame {
+                background-color: #f9fafb;
+                border: 1px solid #d1d5db;
+                border-radius: 10px;
+            }
+        """)
+        self.formLayout = QtWidgets.QGridLayout(self.formFrame)
+        self.formLayout.setContentsMargins(14, 14, 14, 14)
+        self.formLayout.setHorizontalSpacing(12)
+        self.formLayout.setVerticalSpacing(10)
+        self.formLayout.setColumnStretch(0, 1)
+        self.formLayout.setColumnStretch(1, 2)
+        self.formLayout.setColumnStretch(2, 1)
+        self.formLayout.setColumnStretch(3, 2)
+
+        def set_line_style(widget, color):
+            widget.setStyleSheet(f"""
+                QLineEdit {{
+                    background-color: {color};
+                    font: 700 9pt "Segoe UI";
+                    min-height: 30px;
+                    padding: 4px 8px;
+                    border: 1px solid #4b5563;
+                    border-radius: 6px;
+                }}
+            """)
+
+        def set_combo_style(widget, color, drop_color=None):
+            if drop_color is None:
+                drop_color = color
+            widget.setStyleSheet(f"""
+                QComboBox {{
+                    background-color: {color};
+                    border: 1px solid #4b5563;
+                    border-radius: 6px;
+                    font: 700 9pt "Segoe UI";
+                    min-height: 30px;
+                    padding: 4px 8px;
+                }}
+                QComboBox QAbstractItemView {{
+                    background-color: {drop_color};
+                }}
+            """)
+
+        # Cột label trái
+        self.lineEdit_5 = QtWidgets.QLineEdit(self.formFrame)
+        self.lineEdit_5.setObjectName("lineEdit_5")
+        set_line_style(self.lineEdit_5, "white")
+
+        self.lineEdit_10 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_10.setObjectName("lineEdit_10")
-        self.verticalLayout_3.addWidget(self.lineEdit_10)
-        self.lineEdit_12 = QtWidgets.QLineEdit(self.verticalLayoutWidget_3)
-        self.lineEdit_12.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"background-color: rgb(255, 255, 0);")
+        set_line_style(self.lineEdit_10, "rgb(0, 170, 255)")
+
+        self.lineEdit_12 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_12.setObjectName("lineEdit_12")
-        self.verticalLayout_3.addWidget(self.lineEdit_12)
-        self.comboBox_4 = QtWidgets.QComboBox(self.verticalLayoutWidget_3)
-        self.comboBox_4.setStyleSheet("QComboBox {\n"
-"    background-color: rgb(255, 0, 0);   /* đỏ tươi */\n"
-"    border: 1px solid gray;\n"
-"    font: 700 9pt \"Segoe UI\";\n"
-"}\n"
-"\n"
-"/* nếu muốn list xổ xuống cũng hơi đỏ đỏ */\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: rgb(255, 100, 100);\n"
-"}\n"
-"")
+        set_line_style(self.lineEdit_12, "rgb(255, 255, 0)")
+
+        self.comboBox_4 = QtWidgets.QComboBox(self.formFrame)
         self.comboBox_4.setObjectName("comboBox_4")
         self.comboBox_4.addItem("")
-        self.verticalLayout_3.addWidget(self.comboBox_4)
-        self.lineEdit_23 = QtWidgets.QLineEdit(self.verticalLayoutWidget_3)
-        self.lineEdit_23.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"background-color: rgb(0, 170, 0);")
+        set_combo_style(self.comboBox_4, "rgb(255, 0, 0)", "rgb(255, 100, 100)")
+
+        self.lineEdit_23 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_23.setObjectName("lineEdit_23")
-        self.verticalLayout_3.addWidget(self.lineEdit_23)
-        self.verticalLayoutWidget_4 = QtWidgets.QWidget(Widget)
-        self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(820, 730, 211, 171))
-        self.verticalLayoutWidget_4.setObjectName("verticalLayoutWidget_4")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_4)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.lineEdit_14 = QtWidgets.QLineEdit(self.verticalLayoutWidget_4)
-        self.lineEdit_14.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"background-color: rgb(0, 255, 0);")
+        set_line_style(self.lineEdit_23, "rgb(0, 170, 0)")
+
+        # Cột nhập trái
+        self.comboBox = QtWidgets.QComboBox(self.formFrame)
+        self.comboBox.setObjectName("comboBox")
+        for _ in range(12):
+            self.comboBox.addItem("")
+        set_combo_style(self.comboBox, "white")
+
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.formFrame)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        set_line_style(self.lineEdit_2, "rgb(0, 170, 255)")
+
+        self.lineEdit_4 = QtWidgets.QLineEdit(self.formFrame)
+        self.lineEdit_4.setObjectName("lineEdit_4")
+        set_line_style(self.lineEdit_4, "rgb(255, 255, 0)")
+
+        self.comboBox_2 = QtWidgets.QComboBox(self.formFrame)
+        self.comboBox_2.setObjectName("comboBox_2")
+        for _ in range(13):
+            self.comboBox_2.addItem("")
+        set_combo_style(self.comboBox_2, "rgb(255, 0, 0)", "rgb(255, 100, 100)")
+
+        self.lineEdit_6 = QtWidgets.QLineEdit(self.formFrame)
+        self.lineEdit_6.setObjectName("lineEdit_6")
+        set_line_style(self.lineEdit_6, "rgb(0, 170, 0)")
+
+        # Cột label phải
+        self.lineEdit_14 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_14.setObjectName("lineEdit_14")
-        self.verticalLayout_4.addWidget(self.lineEdit_14)
-        self.lineEdit_15 = QtWidgets.QLineEdit(self.verticalLayoutWidget_4)
-        self.lineEdit_15.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"background-color: rgb(255, 170, 0);")
+        set_line_style(self.lineEdit_14, "rgb(0, 255, 0)")
+
+        self.lineEdit_15 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_15.setObjectName("lineEdit_15")
-        self.verticalLayout_4.addWidget(self.lineEdit_15)
-        self.lineEdit_17 = QtWidgets.QLineEdit(self.verticalLayoutWidget_4)
-        self.lineEdit_17.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"\n"
-"background-color: rgb(170, 85, 255);")
+        set_line_style(self.lineEdit_15, "rgb(255, 170, 0)")
+
+        self.lineEdit_17 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_17.setObjectName("lineEdit_17")
-        self.verticalLayout_4.addWidget(self.lineEdit_17)
-        self.comboBox_5 = QtWidgets.QComboBox(self.verticalLayoutWidget_4)
-        self.comboBox_5.setStyleSheet("QComboBox {\n"
-"    background-color: rgb(255, 0, 255);   /* đỏ tươi */\n"
-"    border: 1px solid gray;\n"
-"    font: 700 9pt \"Segoe UI\";\n"
-"}\n"
-"\n"
-"/* nếu muốn list xổ xuống cũng hơi đỏ đỏ */\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: rgb(255, 0, 255);\n"
-"}\n"
-"")
+        set_line_style(self.lineEdit_17, "rgb(170, 85, 255)")
+
+        self.comboBox_5 = QtWidgets.QComboBox(self.formFrame)
         self.comboBox_5.setObjectName("comboBox_5")
         self.comboBox_5.addItem("")
-        self.verticalLayout_4.addWidget(self.comboBox_5)
-        self.lineEdit_19 = QtWidgets.QLineEdit(self.verticalLayoutWidget_4)
-        self.lineEdit_19.setStyleSheet("font: 700 9pt \"Segoe UI\";\n"
-"\n"
-"background-color: rgb(85, 85, 255);")
+        set_combo_style(self.comboBox_5, "rgb(255, 0, 255)", "rgb(255, 0, 255)")
+
+        self.lineEdit_19 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_19.setObjectName("lineEdit_19")
-        self.verticalLayout_4.addWidget(self.lineEdit_19)
-        self.verticalLayoutWidget_5 = QtWidgets.QWidget(Widget)
-        self.verticalLayoutWidget_5.setGeometry(QtCore.QRect(1030, 730, 381, 171))
-        self.verticalLayoutWidget_5.setObjectName("verticalLayoutWidget_5")
-        self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_5)
-        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.lineEdit_13 = QtWidgets.QLineEdit(self.verticalLayoutWidget_5)
-        self.lineEdit_13.setStyleSheet("background-color: rgb(0, 255, 0);\n"
-"font: 700 9pt \"Segoe UI\";")
+        set_line_style(self.lineEdit_19, "rgb(85, 85, 255)")
+
+        self.lineEdit_21 = QtWidgets.QLineEdit(self.formFrame)  # Ô tên mới: Đường link
+        self.lineEdit_21.setObjectName("lineEdit_21")
+        set_line_style(self.lineEdit_21, "rgb(230, 230, 230)")
+
+        # Cột nhập phải
+        self.lineEdit_13 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_13.setObjectName("lineEdit_13")
-        self.verticalLayout_5.addWidget(self.lineEdit_13)
-        self.lineEdit_16 = QtWidgets.QLineEdit(self.verticalLayoutWidget_5)
-        self.lineEdit_16.setStyleSheet("background-color: rgb(255, 170, 0);\n"
-"font: 700 9pt \"Segoe UI\";")
+        set_line_style(self.lineEdit_13, "rgb(0, 255, 0)")
+
+        self.lineEdit_16 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_16.setObjectName("lineEdit_16")
-        self.verticalLayout_5.addWidget(self.lineEdit_16)
-        self.lineEdit_20 = QtWidgets.QLineEdit(self.verticalLayoutWidget_5)
-        self.lineEdit_20.setStyleSheet("background-color: rgb(170, 85, 255);\n"
-"\n"
-"font: 700 9pt \"Segoe UI\";")
+        set_line_style(self.lineEdit_16, "rgb(255, 170, 0)")
+
+        self.lineEdit_20 = QtWidgets.QLineEdit(self.formFrame)
         self.lineEdit_20.setObjectName("lineEdit_20")
-        self.verticalLayout_5.addWidget(self.lineEdit_20)
-        self.comboBox_3 = QtWidgets.QComboBox(self.verticalLayoutWidget_5)
-        self.comboBox_3.setStyleSheet("QComboBox {\n"
-"    background-color: rgb(255, 0, 255);   /* đỏ tươi */\n"
-"    border: 1px solid gray;\n"
-"    font: 700 9pt \"Segoe UI\";\n"
-"}\n"
-"\n"
-"/* nếu muốn list xổ xuống cũng hơi đỏ đỏ */\n"
-"QComboBox QAbstractItemView {\n"
-"    background-color: rgb(255, 0, 255);\n"
-"}\n"
-"")
+        set_line_style(self.lineEdit_20, "rgb(170, 85, 255)")
+
+        self.comboBox_3 = QtWidgets.QComboBox(self.formFrame)
         self.comboBox_3.setObjectName("comboBox_3")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.comboBox_3.addItem("")
-        self.verticalLayout_5.addWidget(self.comboBox_3)
-        self.lineEdit_22 = QtWidgets.QLineEdit(self.verticalLayoutWidget_5) # Bước 1: Tạo ô nhập API URL trên giao diện
-        self.lineEdit_22.setStyleSheet("background-color: rgb(85, 85, 255);\n"
-"\n"
-"font: 700 9pt \"Segoe UI\";")
+        for _ in range(24):
+            self.comboBox_3.addItem("")
+        set_combo_style(self.comboBox_3, "rgb(255, 0, 255)", "rgb(255, 0, 255)")
+
+        self.lineEdit_22 = QtWidgets.QLineEdit(self.formFrame) # Bước 1: Tạo ô nhập API URL trên giao diện
         self.lineEdit_22.setObjectName("lineEdit_22")
-        self.verticalLayout_5.addWidget(self.lineEdit_22)
-        self.comboBox = QtWidgets.QComboBox(Widget)
-        self.comboBox.setGeometry(QtCore.QRect(258, 720, 381, 26))
-        self.comboBox.setStyleSheet("\n"
-"font: 700 9pt \"Segoe UI\";")
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.lineEdit_5 = QtWidgets.QLineEdit(Widget)
-        self.lineEdit_5.setGeometry(QtCore.QRect(70, 720, 191, 26))
-        self.lineEdit_5.setStyleSheet("font: 700 9pt \"Segoe UI\";")
-        self.lineEdit_5.setObjectName("lineEdit_5")
+        set_line_style(self.lineEdit_22, "rgb(85, 85, 255)")
+
+        self.lineEdit_24 = QtWidgets.QLineEdit(self.formFrame)  # Bước 1: Tạo ô nhập link nopecha
+        self.lineEdit_24.setObjectName("lineEdit_24")
+        set_line_style(self.lineEdit_24, "white")
+
+        # Sắp xếp giao diện thành từng hàng rõ ràng, cách đều
+        self.formLayout.addWidget(self.lineEdit_5, 0, 0)
+        self.formLayout.addWidget(self.comboBox, 0, 1)
+        self.formLayout.addWidget(self.lineEdit_14, 0, 2)
+        self.formLayout.addWidget(self.lineEdit_13, 0, 3)
+
+        self.formLayout.addWidget(self.lineEdit_10, 1, 0)
+        self.formLayout.addWidget(self.lineEdit_2, 1, 1)
+        self.formLayout.addWidget(self.lineEdit_15, 1, 2)
+        self.formLayout.addWidget(self.lineEdit_16, 1, 3)
+
+        self.formLayout.addWidget(self.lineEdit_12, 2, 0)
+        self.formLayout.addWidget(self.lineEdit_4, 2, 1)
+        self.formLayout.addWidget(self.lineEdit_17, 2, 2)
+        self.formLayout.addWidget(self.lineEdit_20, 2, 3)
+
+        self.formLayout.addWidget(self.comboBox_4, 3, 0)
+        self.formLayout.addWidget(self.comboBox_2, 3, 1)
+        self.formLayout.addWidget(self.comboBox_5, 3, 2)
+        self.formLayout.addWidget(self.comboBox_3, 3, 3)
+
+        self.formLayout.addWidget(self.lineEdit_23, 4, 0)
+        self.formLayout.addWidget(self.lineEdit_6, 4, 1)
+        self.formLayout.addWidget(self.lineEdit_19, 4, 2)
+        self.formLayout.addWidget(self.lineEdit_22, 4, 3)
+
+        self.formLayout.addWidget(self.lineEdit_21, 5, 0)
+        self.formLayout.addWidget(self.lineEdit_24, 5, 1, 1, 3)
+
+        self.verticalLayout.addWidget(self.formFrame)
 
         self.retranslateUi(Widget)
         QtCore.QMetaObject.connectSlotsByName(Widget)
@@ -340,6 +326,8 @@ class Ui_Widget(object):
         self.lineEdit_17.setText(_translate("Widget", "File.txt Danh Sách Proxy"))
         self.comboBox_5.setItemText(0, _translate("Widget", "Kích Thước Màn Hình ->"))
         self.lineEdit_19.setText(_translate("Widget", "API URL ( Nhập ->)"))
+        self.lineEdit_21.setText(_translate("Widget", "Link file nopecha ->"))
+        self.lineEdit_24.setPlaceholderText(_translate("Widget", "Nhập đường link đến file nopecha"))
         self.comboBox_3.setItemText(0, _translate("Widget", "400,400"))
         self.comboBox_3.setItemText(1, _translate("Widget", "500,500"))
         self.comboBox_3.setItemText(2, _translate("Widget", "500,600"))
@@ -386,7 +374,7 @@ class MultiThread(QThread):
     # record: row_index, proxy, email, password, month, status
     record = pyqtSignal(object, object, object, object, object, object)
 
-    def __init__(self, index, soluong, domain, password, month, proxy_list, apiurl, kichthuocmanhinh, api_captra):
+    def __init__(self, index, soluong, domain, password, month, proxy_list, apiurl, kichthuocmanhinh, api_captra, link_nopecha):
         super().__init__()
         self.index = index
         self.soluong = soluong
@@ -398,10 +386,13 @@ class MultiThread(QThread):
         self.apiurl = apiurl #Bước 6 Trong thread lưu vào self
         self.kichthuocmanhinh = kichthuocmanhinh
         self.api_captra = api_captra
+        self.link_nopecha = link_nopecha
         self.is_running = True
 
         self.gpm = None          # object GpmApi.Gpm()
         self.id_profile = None   # id profile do GPM tạo ra
+        self.cleanup_done = False
+        self.cleanup_lock = threading.Lock()
 
     def calc_window_position(self, index, kichthuoc: str):
         width_ui, height_ui = map(int, kichthuoc.split(","))
@@ -504,7 +495,8 @@ class MultiThread(QThread):
                 self.apiurl,
                 self.id_profile,
                 win_pos=f"{toado}",
-                win_size=f"{self.kichthuocmanhinh}"
+                win_size=f"{self.kichthuocmanhinh}",
+                link_nopecha=self.link_nopecha
             )
             time.sleep(1)
 
@@ -663,20 +655,39 @@ class MultiThread(QThread):
             else:
                 print(f"Đóng profile {self.id_profile} (đã tạo xong hoặc dưới 3 phút)")
 
-            if self.gpm is not None and self.id_profile is not None:
-                try:
-                    self.gpm.close_profile(self.apiurl, self.id_profile)
-                    print("Đóng ở finally cuối")
-                    print("Đóng id_profile", self.id_profile)
-                    time.sleep(1)
-                    self.gpm.update_profile(self.apiurl, self.id_profile)
-                    print("Update id_profile", self.id_profile)
-                    time.sleep(1)
-                    self.gpm.delete_profile(self.apiurl, self.id_profile)
-                    print("Delete id_profile", self.id_profile)
-                    time.sleep(1)
-                except Exception as e:
-                    print("Lỗi khi close/update/delete profile:", e)
+            self.cleanup_profile()
+    def cleanup_profile(self):
+        with self.cleanup_lock:
+            if self.cleanup_done:
+                return
+
+            if self.gpm is None or self.id_profile is None:
+                print(f"Thread {self.index}: chưa có profile để đóng/xóa")
+                self.cleanup_done = True
+                return
+
+            profile_id = self.id_profile
+
+            try:
+                close_res = self.gpm.close_profile(self.apiurl, profile_id)
+                print("Kết quả đóng profile:", close_res)
+
+                time.sleep(2)
+
+                delete_res = self.gpm.delete_profile(self.apiurl, profile_id, mode="hard")
+                print("Kết quả xóa profile:", delete_res)
+
+                if not delete_res.get("success"):
+                    print("Xóa profile lần 1 lỗi, thử lại lần 2")
+                    time.sleep(3)
+                    delete_res = self.gpm.delete_profile(self.apiurl, profile_id, mode="hard")
+                    print("Kết quả xóa profile lần 2:", delete_res)
+
+            except Exception as e:
+                print(f"Lỗi khi đóng/xóa profile {profile_id}:", e)
+
+            finally:
+                self.cleanup_done = True
 
     def logOut(self):
         print("Bắt đầu logout")
@@ -687,27 +698,9 @@ class MultiThread(QThread):
     #     self.is_running = False
     #     print(f"Yêu cầu dừng thread {self.index}")
     def stop(self):
-        # đánh dấu là đã được yêu cầu dừng
         self.is_running = False
-
-        # 👉 ĐÓNG + XÓA PROFILE GPM
-        try:
-                if self.gpm is not None and self.id_profile is not None:
-                # đóng profile
-                        self.gpm.close_profile(self.apiurl, self.id_profile)
-                        print(f"Đã đóng profile {self.id_profile}")
-
-                        # xóa profile
-                        self.gpm.delete_profile(self.apiurl, self.id_profile)
-                        print(f"Đã xóa profile {self.id_profile}")
-                else:
-                        print(f"Thread {self.index}: không có profile để đóng/xóa")
-        except Exception as e:
-                print(f"Lỗi khi đóng/xóa profile {self.id_profile}: {e}")
-
-        # cuối cùng mới kill thread
-        self.terminate()
-
+        self.cleanup_profile()
+        print(f"Yêu cầu dừng thread {self.index}")
 # ===========================
 # MANAGER: GẮN UI + THREAD
 # ===========================
@@ -729,6 +722,7 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
         self.lineEdit_20.textChanged.connect(lambda: self.updateConfig("lineEdit_20"))
         self.comboBox_3.currentIndexChanged.connect(lambda: self.updateConfig("comboBox_3"))
         self.lineEdit_22.textChanged.connect(lambda: self.updateConfig("lineEdit_22")) #Bước 2 tự lưu vào config.env
+        self.lineEdit_24.textChanged.connect(lambda: self.updateConfig("lineEdit_24")) # Bước 2 tự lưu vào config.env
 
         # Load config.env
         self.env_file = "config.env"
@@ -750,6 +744,8 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
             self.comboBox_3.setCurrentText(os.getenv("kichthuocmanhinh"))
         if os.getenv("apiurl"):
             self.lineEdit_22.setText(os.getenv("apiurl")) # Bước 3: Khi mở tool, tự load apiurl từ config.env lên ô nhập
+        if os.getenv("nopecha_link"):
+            self.lineEdit_24.setText(os.getenv("nopecha_link")) # Bước 3: Khi mở tool, tự load link nopecha từ config.env lên ô nhập
 
     def updateConfig(self, text):
         if text == "lineEdit_2":
@@ -768,6 +764,8 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
             set_key(self.env_file, "kichthuocmanhinh", self.comboBox_3.currentText())
         if text == "lineEdit_22":
             set_key(self.env_file, "apiurl", self.lineEdit_22.text())
+        if text == "lineEdit_24":
+            set_key(self.env_file, "nopecha_link", self.lineEdit_24.text())
 
     def startThread(self):
         # Không cho start nếu còn thread đang chạy
@@ -783,6 +781,7 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
         input_fileproxy = self.lineEdit_20.text().strip()
         input_kichthuocmanhinh = self.comboBox_3.currentText().strip()
         input_apiurl = self.lineEdit_22.text().strip() # Bước 4: Khi bấm Bắt đầu, lấy dữ liệu từ ô nhập
+        input_nopecha_link = self.lineEdit_24.text().strip() # Bước 4: Khi bấm Bắt đầu, lấy dữ liệu từ ô nhập
 
         if not os.path.isfile(input_fileproxy):
             QMessageBox.warning(self, "Lỗi", f"Không tìm thấy file proxy: {input_fileproxy}")
@@ -809,6 +808,7 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
                 # proxy=random.choice(proxyList), 
                 proxy_list=proxyList,  # <--- TRUYỀN CẢ LIST VÀO ĐÂY (Đổi tên tham số cho rõ)
                 apiurl=input_apiurl, # Bước 5: Truyền API URL vào từng thread
+                link_nopecha=input_nopecha_link, # Bước 5: Truyền link nopecha vào từng thread
                 kichthuocmanhinh=input_kichthuocmanhinh,
                 api_captra=input_captra
             )
@@ -818,14 +818,11 @@ class Manager(QtWidgets.QMainWindow, Ui_Widget):
             time.sleep(0.5)
 
     def stopThread(self):
-        # 1. Dừng toàn bộ thread đang chạy
         for t in self.threads:
-                t.stop()   # trong stop() sẽ tự đóng profile
-                t.wait()   # đợi thread đó kết thúc hẳn (optional nhưng nên có)
+            t.stop()
+            t.wait(10000)
 
-        # 2. Xóa danh sách thread, KHÔNG tắt tool
         self.threads = []
-        # KHÔNG gọi QApplication.quit() hay QCoreApplication.instance().quit()
 
     def write_data(self, i, proxy, email, password, month_birthday, status):
         self.tableWidget.setItem(i, 0, QTableWidgetItem(str(proxy)))
